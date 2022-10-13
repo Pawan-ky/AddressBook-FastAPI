@@ -1,3 +1,7 @@
+
+# method to get coordinates of address
+# using geopy library
+
 from geopy.geocoders import Nominatim
 
 def get_coodinates(address):

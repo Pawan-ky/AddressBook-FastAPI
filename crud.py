@@ -19,6 +19,7 @@ def get_address(db: Session, skip: int = 0, limit: int = 100):
 def add_address(db: Session, address: schemas.AddressBaseRequest):
     address_dict =  address.dict()
     address_for_coordinates = address_dict["address"]+","+address_dict["city"]
+    # calling get_coordinates function to get corrdinates of address
     lat, lon = get_coodinates(address_for_coordinates)
     address_dict["latitude"] = lat
     address_dict["longitude"] = lon
@@ -31,6 +32,7 @@ def add_address(db: Session, address: schemas.AddressBaseRequest):
 def update_address(db_email,db: Session,address: schemas.AddressBase):
     dataToUpdate = address.dict(exclude_unset=True)
     address_for_coordinates = dataToUpdate["address"]+","+dataToUpdate["city"]
+    # calling get_coordinates function to get corrdinates of address
     lat, lon = get_coodinates(address_for_coordinates)
     dataToUpdate["latitude"] = lat
     dataToUpdate["longitude"] = lon
