@@ -37,7 +37,7 @@ def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 
 
 @app.post("/api/v1/address/add/", response_model=schemas.AddressBase)
-def add_address(address: schemas.AddressBase, db: Session = Depends(get_db)):
+def add_address(address: schemas.AddressBaseRequest, db: Session = Depends(get_db)):
     db_email = crud.get_address_by_email(db, email=address.email)
     if db_email:
         raise HTTPException(status_code=400, detail="Email already present")
@@ -45,7 +45,7 @@ def add_address(address: schemas.AddressBase, db: Session = Depends(get_db)):
 
 
 @app.put("/api/v1/address/update/",response_model=schemas.AddressBase)
-def update_address(email:str,address: schemas.AddressBase,db: Session = Depends(get_db)):
+def update_address(email:str,address: schemas.AddressBaseRequest,db: Session = Depends(get_db)):
     db_email = crud.get_address_by_email(db, email=email)
     if db_email is None:
         raise HTTPException(status_code=400, detail="Address with given email not found")

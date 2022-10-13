@@ -1,12 +1,28 @@
+from lib2to3.pgen2.token import OP
 from uuid import uuid4,UUID
-from pydantic import BaseModel, validator,validate_email,ValidationError
+from pydantic import BaseModel,EmailStr
 from typing import Optional
 
 class AddressBase(BaseModel):
-    id: Optional[int]
-    email: str
+    email: EmailStr
     name: str
-    address1: str
+    address: str
+    city: str
+    state: str
+    country: str    
+    zip: int
+    phonenumber: int
+    latitude:str
+    longitude:str
+    
+    class Config:
+        orm_mode = True
+        
+class AddressBaseRequest(BaseModel):
+
+    email: EmailStr
+    name: str
+    address: str
     city: str
     state: str
     country: str    
@@ -15,7 +31,3 @@ class AddressBase(BaseModel):
     
     class Config:
         orm_mode = True
-        
-    # @validate_email('email')
-    # def email_validation()
-    
